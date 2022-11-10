@@ -1,0 +1,144 @@
+#!/bin/sh
+
+print_usage() {
+	echo "usage:"
+	echo "\tselkie [-gsrlfah] [-k key] [-n name] [-u username] [-p password]"
+	echo "options:"
+	echo "\t-g\tget entries"
+	echo "\t-s\tcreate or update entries"
+	echo "\t-r\tremove entries"
+	echo "\t-l\tlist all entries"
+	echo "\t-a\tget all matching entries"
+	echo "\t-f\tforce changing the entries"
+	echo "\t-h\tprint usage"
+}
+
+[ ! $SELKIE_STORAGE ] && SELKIE_STORAGE="$HOME/.local/var/selkie/pw_storage"
+[ ! $SELKIE_KEY_FILE ] && SELKIE_KEY_FILE="$HOME/.local/etc/selkie/key_file"
+
+mkdir -p "$(dirname "$SELKIE_STORAGE")" "$(dirname "$SELKIE_STORAGE")"
+
+while getopts "gsrk:n:u:p:lfah" o; do
+	case "$o" in
+		g)
+			get=true
+			;;
+		s)
+			set=true
+			;;
+		r)
+			remove=true
+			;;
+		k)
+			key=$OPTARG
+			;;
+		n)
+			name=$OPTARG
+			;;
+		u)
+			username=$OPTARG
+			;;
+		p)
+			password=$OPTARG
+			;;
+		l)
+			list=true
+			;;
+		a)
+			get_all=true
+			;;
+		f)
+			force=true
+			;;
+		h)
+			print_usage
+			exit
+			;;
+	esac
+done
+
+
+if [ ! $key ]; then
+	if [ ! -e $SELKIE_KEY_FILE ]; then
+		echo "error:  key not available"
+		echo "provide key with the '-k' option or add it to the '$SELKIE_KEY_FILE' file"
+		print_usage
+		exit 1
+	else
+		key=$(cat $SELKIE_KEY_FILE)
+	fi
+fi
+
+touch "$SELKIE_STORAGE"
+
+storage_contents="$(openssl enc -d -aes-256-cbc -in "$SELKIE_STORAGE" -k "$key")"
+
+if [ $list ]; then
+	echo "$storage_contents"
+	exit
+fi
+
+if [ ! $name ]; then
+	echo "error:  name is not set"
+	echo "set the name with the '-n' option"
+	print_usage
+	exit
+fi
+
+sed_search="^$name[[:space:]]$([ $username ] && printf $username'[[:space:]]')"
+get_contents=$(echo "$storage_contents" | sed -n "/$sed_search/p")
+
+if [ $get ]; then
+	if [ $(echo "$get_contents" | wc -c) = 1 ]; then
+		echo "no matches"
+	elif [ $(echo "$get_contents" | wc -l) -gt 1 ] || [ $get_all ]; then
+		# get all matches
+		echo "$get_contents"
+	else
+		# get password
+		echo "$get_contents" | awk '{ print $3 }'
+	fi
+	exit
+fi
+
+if [ ! $username ]; then
+	echo "error:  username is not set"
+	echo "set the username with the '-u' option"
+	print_usage
+	exit
+fi
+
+if [ $set ]; then
+	if [ $(echo $get_contents | wc -c) != 1 ]; then
+		if [ ! $force ]; then
+			echo "error:  entry with the name $name $([ $username ] && echo 'and username $username ')already exists."
+			echo "to overwrite the entry, provide the '-f' option."
+			exit
+		fi
+	fi
+	if [ ! $password ]; then
+		password=$(openssl rand -base64 50 | tr -d "=+/\n")
+	fi
+	updated_contents=$(echo "$storage_contents" | sed "/sed_search/d")
+	new_entry="$name\t$username\t$password"
+	echo $new_entry
+	updated_contents="$updated_contents"'\n'"$new_entry"
+	echo "$updated_contents" | openssl enc -aes-256-cbc -k "$key" -out "$SELKIE_STORAGE"
+	exit
+fi
+
+if [ $remove ]; then
+	if [ $(echo $get_contents | wc -c) = 1 ]; then
+		echo "nothing to remove"
+		exit
+	fi
+	if [ ! $force ]; then
+		printf "are you sure you want to remove the contents? [y/N] "
+		read yn
+		[ $yn != 'y' ] && exit
+	fi
+	echo $get_contents
+	updated_contents=$(echo "$storage_contents" | sed -n "/sed_search/d")
+	echo "$updated_contents" | openssl enc -aes-256-cbc -k "$key" -out "$SELKIE_STORAGE"
+	exit
+fi

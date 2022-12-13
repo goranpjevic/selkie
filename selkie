@@ -13,8 +13,8 @@ print_usage() {
 	echo "\t-h\tprint usage"
 }
 
-[ ! $SELKIE_STORAGE ] && SELKIE_STORAGE="$HOME/.local/var/selkie/pw_storage"
-[ ! $SELKIE_KEY_FILE ] && SELKIE_KEY_FILE="$HOME/.local/etc/selkie/key_file"
+[ ! "$SELKIE_STORAGE" ] && SELKIE_STORAGE="$HOME/.local/var/selkie/pw_storage"
+[ ! "$SELKIE_KEY_FILE" ] && SELKIE_KEY_FILE="$HOME/.local/etc/selkie/key_file"
 
 mkdir -p "$(dirname "$SELKIE_STORAGE")" "$(dirname "$SELKIE_KEY_FILE")"
 
@@ -59,13 +59,13 @@ done
 
 
 if [ ! $key ]; then
-	if [ ! -e $SELKIE_KEY_FILE ]; then
+	if [ ! -e "$SELKIE_KEY_FILE" ]; then
 		echo "error:  key not available"
 		echo "provide key with the '-k' option or add it to the '$SELKIE_KEY_FILE' file"
 		print_usage
 		exit 1
 	else
-		key=$(cat $SELKIE_KEY_FILE)
+		key=$(cat "$SELKIE_KEY_FILE")
 	fi
 fi
 

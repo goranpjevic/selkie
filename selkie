@@ -111,7 +111,7 @@ fi
 if [ $set ]; then
 	if [ $(echo $get_contents | wc -c) != 1 ]; then
 		if [ ! $force ]; then
-			echo "error:  entry with the name $name $([ $username ] && echo 'and username $username ')already exists."
+			echo "error:  entry with the name $name and username $username already exists."
 			echo "to overwrite the entry, provide the '-f' option."
 			exit
 		fi

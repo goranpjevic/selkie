@@ -1,3 +1,15 @@
                                      selkie
 
 password manager.
+
+usage:
+	selkie [-gsrlfah] [-k key] [-n name] [-u username] [-p password]
+
+options:
+	-g	get entries
+	-s	create or update entries
+	-r	remove entries
+	-l	list all entries
+	-a	get all matching entries
+	-f	force changing the entries
+	-h	print usage

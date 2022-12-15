@@ -72,10 +72,10 @@ fi
 
 touch "$SELKIE_STORAGE"
 
-storage_contents="$(openssl enc -d -aes-256-cbc -in "$SELKIE_STORAGE" -k "$key")"
+all_entries="$(openssl enc -d -aes-256-cbc -in "$SELKIE_STORAGE" -k "$key")"
 
 if [ $list ]; then
-	echo "$storage_contents"
+	echo "$all_entries"
 	exit
 fi
 
@@ -87,7 +87,7 @@ if [ ! $name ]; then
 fi
 
 sed_search="^$name[[:space:]]$([ $username ] && printf $username'[[:space:]]')"
-get_contents=$(echo "$storage_contents" | sed -n "/$sed_search/p")
+get_contents=$(echo "$all_entries" | sed -n "/$sed_search/p")
 
 if [ $get ]; then
 	if [ $(echo "$get_contents" | wc -c) = 1 ]; then
@@ -121,7 +121,7 @@ if [ $set ]; then
 	if [ ! $password ]; then
 		password=$(openssl rand -base64 50 | tr -d "=+/\n")
 	fi
-	updated_contents=$(echo "$storage_contents" | sed "/sed_search/d")
+	updated_contents=$(echo "$all_entries" | sed "/sed_search/d")
 	new_entry="$name\t$username\t$password"
 	echo $new_entry
 	updated_contents="$updated_contents"'\n'"$new_entry"
@@ -140,7 +140,7 @@ if [ $remove ]; then
 		[ $yn != 'y' ] && exit
 	fi
 	echo $get_contents
-	updated_contents=$(echo "$storage_contents" | sed -n "/sed_search/d")
+	updated_contents=$(echo "$all_entries" | sed -n "/sed_search/d")
 	echo "$updated_contents" | openssl enc -aes-256-cbc -k "$key" -out "$SELKIE_STORAGE"
 	exit
 fi

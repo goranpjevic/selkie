@@ -2,7 +2,8 @@
 
 print_usage() {
 	echo "usage:"
-	echo "\tselkie [-gsrlfah] [-k key] [-n name] [-u username] [-p password]"
+	echo "\tselkie [-gsrlfah] [-k key] [-n name] [-u username]"\
+		"[-p password]"
 	echo "options:"
 	echo "\t-g\tget entries"
 	echo "\t-s\tcreate or update entries"

@@ -62,7 +62,7 @@ if [ ! $key ]; then
 	if [ ! -e "$SELKIE_KEY_FILE" ]; then
 		echo "error:  key not available"
 		echo "provide key with the '-k' option or add it to the"\
-		"'$SELKIE_KEY_FILE' file"
+			"'$SELKIE_KEY_FILE' file"
 		print_usage
 		exit 1
 	else
@@ -113,7 +113,7 @@ if [ $set ]; then
 	if [ $(echo $get_contents | wc -c) != 1 ]; then
 		if [ ! $force ]; then
 			echo "error:  entry with the name $name and username"\
-			"$username already exists."
+				"$username already exists."
 			echo "to overwrite the entry, provide the '-f' option."
 			exit
 		fi

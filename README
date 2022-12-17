@@ -2,6 +2,10 @@
 
 password manager.
 
+notes:
+
+  - 'openssl' must be installed for 'selkie' to work.
+
 usage:
 	selkie [-gsrlfah] [-k key] [-n name] [-u username] [-p password]
 

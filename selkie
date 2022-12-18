@@ -127,7 +127,7 @@ if [ $set ]; then
 	updated_contents=$(echo "$all_entries" | sed "/sed_search/d")
 	new_entry="$name\t$username\t$password"
 	echo $new_entry
-	updated_contents="$updated_contents"'\n'"$new_entry"
+	updated_contents="$updated_contents\n$new_entry"
 	echo "$updated_contents" |
 		openssl enc -aes-256-cbc -k "$key" -out "$SELKIE_STORAGE"
 	exit

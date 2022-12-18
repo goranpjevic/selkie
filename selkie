@@ -59,7 +59,7 @@ while getopts "gsrk:n:u:p:lfah" o; do
 done
 
 
-if [ ! $key ]; then
+if [ ! "$key" ]; then
 	if [ ! -e "$SELKIE_KEY_FILE" ]; then
 		echo "error:  key not available"
 		echo "provide key with the '-k' option or add it to the"\
@@ -82,7 +82,7 @@ if [ $list ]; then
 	exit
 fi
 
-if [ ! $name ]; then
+if [ ! "$name" ]; then
 	echo "error:  name is not set"
 	echo "set the name with the '-n' option"
 	print_usage
@@ -105,7 +105,7 @@ if [ $get ]; then
 	exit
 fi
 
-if [ ! $username ]; then
+if [ ! "$username" ]; then
 	echo "error:  username is not set"
 	echo "set the username with the '-u' option"
 	print_usage
@@ -121,7 +121,7 @@ if [ $set ]; then
 			exit
 		fi
 	fi
-	if [ ! $password ]; then
+	if [ ! "$password" ]; then
 		password=$(openssl rand -base64 50 | tr -d "=+/\n")
 	fi
 	updated_contents=$(echo "$all_entries" | sed "/sed_search/d")

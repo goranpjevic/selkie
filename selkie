@@ -74,7 +74,8 @@ fi
 touch "$SELKIE_STORAGE"
 
 [ -s "$SELKIE_STORAGE" ] &&
-	all_entries="$(openssl enc -d -aes-256-cbc -in "$SELKIE_STORAGE" -k "$key")"
+	all_entries="\
+	$(openssl enc -d -aes-256-cbc -in "$SELKIE_STORAGE" -k "$key")"
 
 if [ $list ]; then
 	echo "$all_entries"

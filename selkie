@@ -78,7 +78,7 @@ touch "$SELKIE_STORAGE"
 	$(openssl enc -d -aes-256-cbc -in "$SELKIE_STORAGE" -k "$key")"
 
 if [ $list ]; then
-	echo "$all_entries"
+	echo "$all_entries" | tail -n +2
 	exit
 fi
 

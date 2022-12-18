@@ -17,7 +17,7 @@ print_usage() {
 [ ! "$SELKIE_STORAGE" ] && SELKIE_STORAGE="$HOME/.local/var/selkie/pw_storage"
 [ ! "$SELKIE_KEY_FILE" ] && SELKIE_KEY_FILE="$HOME/.local/etc/selkie/key_file"
 
-mkdir -p "$(dirname "$SELKIE_STORAGE")" "$(dirname "$SELKIE_KEY_FILE")"
+mkdir -p "$(dirname "$SELKIE_STORAGE")"
 
 while getopts "gsrk:n:u:p:lfah" o; do
 	case "$o" in

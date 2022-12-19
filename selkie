@@ -144,7 +144,7 @@ if [ $remove ]; then
 		[ $yn != 'y' ] && exit
 	fi
 	echo $get_contents
-	updated_contents=$(echo "$all_entries" | sed -n "/sed_search/d")
+	updated_contents=$(echo "$all_entries" | sed -n "/$sed_search/d")
 	echo "$updated_contents" |
 		openssl enc -aes-256-cbc -k "$key" -out "$SELKIE_STORAGE"
 	exit

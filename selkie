@@ -122,7 +122,7 @@ if [ $set ]; then
 		fi
 	fi
 	if [ ! "$password" ]; then
-		password=$(openssl rand -base64 50 | tr -d "=+/\n")
+		password=$(openssl rand -base64 50 | tr -d '=+/\n')
 	fi
 	updated_contents=$(echo "$all_entries" | sed "/$sed_search/d")
 	new_entry="$name\t$username\t$password"

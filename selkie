@@ -97,10 +97,8 @@ if [ $get ]; then
 	if [ $(echo "$get_contents" | wc -c) = 1 ]; then
 		echo "no matches"
 	elif [ $(echo "$get_contents" | wc -l) -gt 1 ] || [ $get_all ]; then
-		# get all matches
 		echo "$get_contents"
 	else
-		# get password
 		echo "$get_contents" | awk '{ print $3 }'
 	fi
 	exit

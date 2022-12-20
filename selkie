@@ -89,7 +89,8 @@ if [ ! "$name" ]; then
 	exit
 fi
 
-sed_search="^$name[[:space:]]$([ $username ] && printf $username'[[:space:]]')"
+sed_search="^$name[[:space:]]$([ "$username" ] &&
+	printf "$username"'[[:space:]]')"
 get_contents=$(echo "$all_entries" | sed -n "/$sed_search/p")
 
 if [ $get ]; then

@@ -134,11 +134,11 @@ fi
 
 if [ $remove ]; then
 	if [ $(echo $get_contents | wc -c) = 1 ]; then
-		echo "nothing to remove"
+		echo 'nothing to remove'
 		exit
 	fi
 	if [ ! $force ]; then
-		printf "are you sure you want to remove the contents? [y/N] "
+		printf 'are you sure you want to remove the contents? [y/N] '
 		read yn
 		[ $yn != 'y' ] && exit
 	fi

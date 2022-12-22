@@ -9,7 +9,7 @@ print_usage() {
 	echo "\t-s\tcreate or update entries"
 	echo "\t-r\tremove entries"
 	echo "\t-l\tlist all entries"
-	echo "\t-a\tget all matching entries"
+	echo "\t-a\tget all entry values"
 	echo "\t-f\tforce changing the entries"
 	echo "\t-h\tprint usage"
 }

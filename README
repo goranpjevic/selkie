@@ -14,6 +14,6 @@ options:
 	-s	create or update entries
 	-r	remove entries
 	-l	list all entries
-	-a	get all matching entries
+	-a	get all entry values
 	-f	force changing the entries
 	-h	print usage

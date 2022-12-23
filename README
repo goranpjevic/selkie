@@ -6,6 +6,16 @@ notes:
 
   - 'openssl' must be installed for 'selkie' to work.
 
+configuration:
+
+  - set the '$SELKIE_STORAGE' environment variable to change where 'selkie'
+    stores entries.
+    default location:  '$HOME/.local/var/selkie/pw_storage'
+
+  - set the '$SELKIE_KEY_FILE' environment variable to the file containing the
+    key for 'selkie' to encrypt and decrypt entries.
+    default location:  '$HOME/.local/etc/selkie/key_file'
+
 usage:
 	selkie [-gsrlfah] [-k key] [-n name] [-u username] [-p password]
 

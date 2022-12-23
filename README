@@ -6,6 +6,17 @@ notes:
 
   - 'openssl' must be installed for 'selkie' to work.
 
+  - all entries stored by 'selkie' are made up of an entry name, username, and
+    password.
+
+  - two entries cannot have the same name and username.
+
+  - if the '-p' option for setting the password is not used when creating a new
+    entry, the password will be automatically generated.
+
+  - the key used by 'selkie' to encrypt and decrypt entries can be passed with
+    the '-k' option or added to the key file.
+
 configuration:
 
   - set the '$SELKIE_STORAGE' environment variable to change where 'selkie'

@@ -20,7 +20,7 @@ print_usage() {
 mkdir -p "$(dirname "$SELKIE_STORAGE")"
 
 while getopts "gsrk:n:u:p:lfah" o; do
-	case "$o" in
+	case $o in
 		g)
 			get=true
 			;;

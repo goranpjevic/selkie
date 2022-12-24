@@ -82,6 +82,11 @@ if [ $list ]; then
 	exit
 fi
 
+if [ ! $get ] && [ ! $set ] && [ ! $remove ]; then
+	print_usage
+	exit
+fi
+
 if [ ! "$name" ]; then
 	echo "error:  name is not set"
 	echo "set the name with the '-n' option"

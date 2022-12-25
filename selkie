@@ -84,14 +84,14 @@ fi
 
 if [ ! $get ] && [ ! $set ] && [ ! $remove ]; then
 	print_usage
-	exit
+	exit 1
 fi
 
 if [ ! "$name" ]; then
 	echo "error:  name is not set"
 	echo "set the name with the '-n' option"
 	print_usage
-	exit
+	exit 1
 fi
 
 sed_search="^$name[[:space:]]$([ "$username" ] &&
@@ -113,7 +113,7 @@ if [ ! "$username" ]; then
 	echo "error:  username is not set"
 	echo "set the username with the '-u' option"
 	print_usage
-	exit
+	exit 1
 fi
 
 if [ $set ]; then
@@ -122,7 +122,7 @@ if [ $set ]; then
 			echo "error:  entry with the name $name and username"\
 				"$username already exists."
 			echo "to overwrite the entry, provide the '-f' option."
-			exit
+			exit 1
 		fi
 	fi
 	[ ! "$password" ] && password=$(openssl rand -base64 50 | tr -d '=+/\n')

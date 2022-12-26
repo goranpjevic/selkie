@@ -2,6 +2,28 @@
 
 password manager.
 
+usage:
+	selkie [-gsrlfah] [-k key] [-n name] [-u username] [-p password]
+
+options:
+	-g	get entries
+	-s	create or update entries
+	-r	remove entries
+	-l	list all entries
+	-a	get all entry values
+	-f	force changing the entries
+	-h	print usage
+
+configuration:
+
+  - set the '$SELKIE_STORAGE' environment variable to change where 'selkie'
+    stores entries.
+    default location:  '$HOME/.local/var/selkie/pw_storage'
+
+  - set the '$SELKIE_KEY_FILE' environment variable to the file containing the
+    key for 'selkie' to encrypt and decrypt entries.
+    default location:  '$HOME/.local/etc/selkie/key_file'
+
 notes:
 
   - 'openssl' must be installed for 'selkie' to work.
@@ -16,25 +38,3 @@ notes:
 
   - the key used by 'selkie' to encrypt and decrypt entries can be passed with
     the '-k' option or added to the key file.
-
-configuration:
-
-  - set the '$SELKIE_STORAGE' environment variable to change where 'selkie'
-    stores entries.
-    default location:  '$HOME/.local/var/selkie/pw_storage'
-
-  - set the '$SELKIE_KEY_FILE' environment variable to the file containing the
-    key for 'selkie' to encrypt and decrypt entries.
-    default location:  '$HOME/.local/etc/selkie/key_file'
-
-usage:
-	selkie [-gsrlfah] [-k key] [-n name] [-u username] [-p password]
-
-options:
-	-g	get entries
-	-s	create or update entries
-	-r	remove entries
-	-l	list all entries
-	-a	get all entry values
-	-f	force changing the entries
-	-h	print usage

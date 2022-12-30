@@ -61,8 +61,8 @@ done
 
 if [ ! "$key" ]; then
 	if [ ! -e "$SELKIE_KEY_FILE" ]; then
-		echo "error:  key not available"
-		echo "provide key with the '-k' option or add it to the"\
+		echo "error:  key is not set"
+		echo "set the key with the '-k' option or add it to the"\
 			"'$SELKIE_KEY_FILE' file"
 		print_usage
 		exit 1

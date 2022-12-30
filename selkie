@@ -130,7 +130,7 @@ if [ $set ]; then
 	updated_contents="$updated_contents\n$new_entry"
 	echo "$updated_contents" |
 		openssl enc -aes-256-cbc -k "$key" -out "$SELKIE_STORAGE"
-			exit
+	exit
 fi
 
 if [ $remove ]; then
